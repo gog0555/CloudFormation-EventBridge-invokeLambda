@@ -1,0 +1,18 @@
+AWSTemplateFormatVersion: '2010-09-09'
+
+Description: CloudFormation template for EventBridge rule 'clientVPN-associate'
+
+Resources:
+  EventRule0:
+    Type: AWS::Events::Rule
+    Properties:
+      Description: Invoke Lambda function at 8:50
+      EventBusName: default
+      Name: clientVPN-associate
+      # 平日8:50にClientVPNのサブネット関連付けをするLambda関数を起動する
+      ScheduleExpression: cron(50 23 ? * 1-5 *)
+      State: ENABLED
+      Targets:
+        - Id: Id0000000-0000000000-000000000
+          Arn: >-
+            arn:aws:lambda:ap-northeast-1:01234567891011:function:associate-clientvpn

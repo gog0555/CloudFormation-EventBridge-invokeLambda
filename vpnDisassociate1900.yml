@@ -1,0 +1,18 @@
+AWSTemplateFormatVersion: '2010-09-09'
+
+Description: CloudFormation template for EventBridge rule 'clientVPN-disassociate'
+
+Resources:
+  EventRule0:
+    Type: AWS::Events::Rule
+    Properties:
+      Description: Invoke Lambda function at 19:00
+      EventBusName: default
+      Name: clientVPN-disassociate
+      # 平日19:00にClientVPNのサブネット関連付けを解除するLambda関数を起動する
+      ScheduleExpression: cron(0 10 ? * 1-5 *)
+      State: ENABLED
+      Targets:
+        - Id: Id0000000-0000000000-000000000
+          Arn: >-
+            arn:aws:lambda:ap-northeast-1:01234567891011:function:disassociate-clientvpn
